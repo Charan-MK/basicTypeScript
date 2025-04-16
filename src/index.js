@@ -109,10 +109,12 @@ const firstRes = { success: true };
 const secondRes = { error: 'service temparoriy down' };
 console.log('an exampleof union in type alas: ', firstRes, secondRes);
 /**
- * Unuon types
+ * Union types
  */
 function printCode(code) {
     console.log('thsis is a code: ', code);
 }
 printCode(404);
 printCode('401');
+// Union of types can result in error while performing some actions on the declared variable
+// eg., in the above function printCode, code.toUpperCase() can result in error when the code is of type number

@@ -156,4 +156,4 @@ function printCode(code: string | number) {
 printCode(404);
 printCode('401');
 // Union of types can result in error while performing some actions on the declared variable
-// eg., in the above code, code.toUpperCase() can result in error when the code is of type string
+// eg., in the above function printCode, code.toUpperCase() can result in error when the code is of type number
