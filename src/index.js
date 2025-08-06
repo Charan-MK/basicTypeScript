@@ -111,6 +111,9 @@ console.log('an exampleof union in type alas: ', firstRes, secondRes);
 /**
  * Union types
  */
+/**
+ * a function whuich receives a parameter of type string on number and returns nothing
+ */
 function printCode(code) {
     console.log('thsis is a code: ', code);
 }
@@ -118,3 +121,40 @@ printCode(404);
 printCode('401');
 // Union of types can result in error while performing some actions on the declared variable
 // eg., in the above function printCode, code.toUpperCase() can result in error when the code is of type number
+/**
+ *  Functions
+ *  receives two parameters of type number and return value of type number
+*/
+function addTwoNumber(param1, param2) {
+    return param1 + param2;
+}
+console.log(addTwoNumber(10, 5)); // outputs 15
+const negateFnction = (value) => value * -1;
+console.log(negateFnction(10)); // outputs -10 as result
+// Casting: Casting is the process of overrriding a type
+/**
+ * casting with as
+ */
+let x = 'hey';
+console.log(x.length);
+/**
+ * casting with <>
+ */
+let y = 'hello';
+console.log(y.length);
+// Note: Casting doesn't chaneg the type of the data within the variable 
+// example:
+let z = 5;
+console.log(z.length, z.length);
+/**
+ * Force casting
+ */
+// Force casting is overriding TypeScripts's type saftey to reat a value as different type
+// syntax with example: (value as unknown as TargetType)
+/**
+ * x is unknown, holding a number.
+ * force-cast it to string.
+ * At runtime, it's still a number, so length is undefined.
+ */
+let temp = 4;
+console.log(temp.length); // outputs undefined

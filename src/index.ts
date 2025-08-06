@@ -149,7 +149,11 @@ console.log('an exampleof union in type alas: ', firstRes, secondRes);
 /**
  * Union types
  */
-function printCode(code: string | number) {
+
+/**
+ * a function whuich receives a parameter of type string on number and returns nothing
+ */
+function printCode(code: string | number): void {
     console.log('thsis is a code: ', code);
 }
 
@@ -157,3 +161,68 @@ printCode(404);
 printCode('401');
 // Union of types can result in error while performing some actions on the declared variable
 // eg., in the above function printCode, code.toUpperCase() can result in error when the code is of type number
+
+/**
+ *  Functions
+ *  receives two parameters of type number and return value of type number
+*/
+function addTwoNumber(param1: number, param2: number): number {
+    return param1 + param2;
+}
+
+console.log(addTwoNumber(10, 5)); // outputs 15
+
+// sending parameters to function can vary based on the situations, below are the five different types
+
+/**
+ * 1. regular: where parameters are just passed (param1: <type>, parame2: <type>)
+ * 2. optional: (param1: <type>, parame2: <type>, param3?: <type>)
+ * 3. default: (param1: <type>, parame2: <type>, param3: <type> = <value>)
+ * 4. named: ({ param1, param2 }: { param1: <type>, param2: <type>})
+ *          example: ({ sum, difference }: { sum: number, difference: number})
+ * 5. rest: (param1, param2, rest: <typeOfArray>[]). the rest parameter is always an array
+ */
+
+// function types can be specified separately from functons using type aliases
+
+type Negate = (value: number) => number;
+const negateFnction: Negate = (value) => value * -1;
+
+console.log(negateFnction(10)); // outputs -10 as result
+
+// Casting: Casting is the process of overrriding a type
+
+/**
+ * casting with as
+ */
+let x: unknown = 'hey';
+console.log((x as string).length);
+
+/**
+ * casting with <>
+ */
+
+let y: unknown = 'hello';
+console.log((<string>y).length)
+
+// Note: Casting doesn't chaneg the type of the data within the variable 
+// example:
+
+let z: unknown = 5;
+console.log((z as string).length, (<string>z).length);
+
+/**
+ * Force casting
+ */
+// Force casting is overriding TypeScripts's type saftey to reat a value as different type
+// syntax with example: (value as unknown as TargetType)
+
+/**
+ * x is unknown, holding a number.
+ * force-cast it to string.
+ * At runtime, it's still a number, so length is undefined.
+ */
+
+let temp: unknown = 4;
+console.log((temp as unknown as string).length); // outputs undefined
+
