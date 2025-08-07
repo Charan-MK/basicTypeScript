@@ -226,3 +226,121 @@ console.log((z as string).length, (<string>z).length);
 let temp: unknown = 4;
 console.log((temp as unknown as string).length); // outputs undefined
 
+/**
+ * Classes in typescript
+ */
+
+class Person {
+    public name: string;
+    private age: number;
+    
+    constructor(pName: string, pAge: number) {
+        this.name = pName;
+        this.age = pAge;
+    }
+
+    public getName(): string {
+        return this.name;
+    }
+
+    public getPersonDetails(): { name: string, isMajor: boolean } {
+        if (this.age > 17) {
+            return {
+                name: this.name,
+                isMajor: true,
+            }
+        }
+
+        return {
+            name: this.name,
+            isMajor: false,
+        }
+    }
+}
+
+const person1 = new Person('John', 26);
+console.log(person1.getName())
+console.log(person1.getPersonDetails())
+
+const person2 = new Person('Jessy', 17);
+console.log(person2.getName())
+console.log(person2.getPersonDetails())
+
+
+/**
+ * Generics
+ * Generics allow creating "type variables" which can be used to create classes, functions and type aliases
+ * that they don't need to explicitly define the types that they use 
+ */
+
+// generics with function
+
+function filterArray<T>(arr: T[], predicate: (item: T) => boolean): T[] {
+  return arr.filter(predicate);
+}
+
+// Usage
+const words = ["apple", "banana", "cherry"];
+const longWords = filterArray<string>(words, word => word.length > 5); // ['banana', 'cherry']
+
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = filterArray<number>(numbers, num => num % 2 === 0); // [2, 4]
+
+console.log('long words: ', longWords, 'even numbers: ', evenNumbers);
+
+
+/**
+ * Utility types
+ */
+
+// Partial: changes all properties in an object to be optional
+interface Point {
+    x: number,
+    y: number
+};
+
+// const testPoint: Point = { x: 23 }; throws an error since the testPint is missing y which is a required property
+const point1: Partial<Point> = { x: 12 };
+console.log('this is an object created using Partial: ', point1);
+
+// Required: changes all the properties in an object to be required
+interface Animal {
+    species: string,
+    category: string,
+    sound?: string,
+};
+
+const testanimal: Animal = { species: 'Cat', category: 'domestic' }; // does not throw an error
+const animal: Required<Animal> = { species: 'dog', category: 'domestic', sound: 'woof' };
+console.log('this is an object created using Required utility: ', animal);
+
+// Record: a shortcut to defining an object type with a specific key type and value type
+const ageNameMap: Record<number, string> = {
+    21: 'John',
+    17: 'Jessy',
+};
+// Record<string, number> is equivalent to { [key: string]: number }
+console.log('ageNameMap created using Record: ', ageNameMap);
+
+// Omit: removes keys from an object type.
+interface Triangle {
+    len: number,
+    breadth: number,
+    height: number,
+};
+
+const rectangleVar: Omit<Triangle, 'height'> = {
+    len: 12,
+    breadth: 15,
+};
+
+// similarly Pick removes all but the specified keys from an object type.
+// Exclude removes types from a union.
+type Primitive = string | number | boolean
+const value: Exclude<Primitive, string> = true; // a string cannot be used here since Exclude removed it from the type.
+
+// ReturnType extracts the return type of a function type.
+
+// Parameters extracts the parameter types of a function type as an array.
+
+// Readonly is used to create a new type where all properties are readonly, meaning they cannot be modified once assigned a value.

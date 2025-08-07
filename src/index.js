@@ -158,3 +158,72 @@ console.log(z.length, z.length);
  */
 let temp = 4;
 console.log(temp.length); // outputs undefined
+/**
+ * Classes in typescript
+ */
+class Person {
+    constructor(pName, pAge) {
+        this.name = pName;
+        this.age = pAge;
+    }
+    getName() {
+        return this.name;
+    }
+    getPersonDetails() {
+        if (this.age > 17) {
+            return {
+                name: this.name,
+                isMajor: true,
+            };
+        }
+        return {
+            name: this.name,
+            isMajor: false,
+        };
+    }
+}
+const person1 = new Person('John', 26);
+console.log(person1.getName());
+console.log(person1.getPersonDetails());
+const person2 = new Person('Jessy', 17);
+console.log(person2.getName());
+console.log(person2.getPersonDetails());
+/**
+ * Generics
+ * Generics allow creating "type variables" which can be used to create classes, functions and type aliases
+ * that they don't need to explicitly define the types that they use
+ */
+// generics with function
+function filterArray(arr, predicate) {
+    return arr.filter(predicate);
+}
+// Usage
+const words = ["apple", "banana", "cherry"];
+const longWords = filterArray(words, word => word.length > 5); // ['banana', 'cherry']
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = filterArray(numbers, num => num % 2 === 0); // [2, 4]
+console.log('long words: ', longWords, 'even numbers: ', evenNumbers);
+;
+// const testPoint: Point = { x: 23 }; throws an error since the testPint is missing y which is a required property
+const point1 = { x: 12 };
+console.log('this is an object created using Partial: ', point1);
+;
+const testanimal = { species: 'Cat', category: 'domestic' }; // does not throw an error
+const animal = { species: 'dog', category: 'domestic', sound: 'woof' };
+console.log('this is an object created using Required utility: ', animal);
+// Record: a shortcut to defining an object type with a specific key type and value type
+const ageNameMap = {
+    21: 'John',
+    17: 'Jessy',
+};
+// Record<string, number> is equivalent to { [key: string]: number }
+console.log('ageNameMap created using Record: ', ageNameMap);
+;
+const rectangleVar = {
+    len: 12,
+    breadth: 15,
+};
+const value = true; // a string cannot be used here since Exclude removed it from the type.
+// ReturnType extracts the return type of a function type.
+// Parameters extracts the parameter types of a function type as an array.
+// Readonly is used to create a new type where all properties are readonly, meaning they cannot be modified once assigned a value.
